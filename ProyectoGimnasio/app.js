@@ -1,5 +1,5 @@
 import express from 'express';
-import db from './database/dbConnection.js';  // Conexión a la base de datos
+import db from './database/Connection.js';  // Conexión a la base de datos
 import userRoutes from './routes/userRoutes.js';  // Rutas de usuarios
 
 // Inicializar el servidor Express
