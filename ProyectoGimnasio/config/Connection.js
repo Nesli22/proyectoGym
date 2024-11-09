@@ -1,6 +1,7 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 
+
 dotenv.config(); // Cargar variables de entorno
 
 // Configuración de la base de datos con variables de entorno y valores predeterminados
@@ -27,5 +28,6 @@ export const testDbConnection = async () => {
         console.error('Error al conectar con la base de datos:', error);
     }
 };
+
 
 export default db;

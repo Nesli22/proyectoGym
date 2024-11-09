@@ -34,3 +34,4 @@ export const generateToken = (user) => {
         { expiresIn: '1h' }
     );
 };
+
