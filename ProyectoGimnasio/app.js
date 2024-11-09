@@ -1,16 +1,20 @@
 import express from 'express';
-import db from './database/Connection.js';  // Conexión a la base de datos
+import cors from 'cors';
+import db, {testDbConnection} from './config/Connection.js';  // Conexión a la base de datos
 import userRoutes from './routes/userRoutes.js';  // Rutas de usuarios
+import authRoutes from './routes/authRoutes.js';
 
 // Inicializar el servidor Express
 const app = express();
-const PORT = process.env.SV_PORT || 3000;  // Puerto del servidor, con valor por defecto
+const PORT = process.env.SV_PORT || 3000;  
 
 // Middleware para parsear JSON
+app.use(cors());
 app.use(express.json());
 
 // Rutas para gestionar usuarios
 app.use('/users', userRoutes);
+app.use('/login', authRoutes);
 
 // Iniciar el servidor en el puerto especificado
 app.listen(PORT, () => {
@@ -30,3 +34,5 @@ async function sincronizarDB() {
 
 // Llamada a la función de sincronización de la base de datos
 sincronizarDB();
+
+testDbConnection();

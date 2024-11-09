@@ -1,15 +1,15 @@
-import {request, response} from "express";
+import {getUsersService, createUserService} from '../services/userService.js';
 import User from '../models/User.js';
 
 export const getUsers = async (req, res) => {
     try {
         // Obtiene todos los usuarios de la base de datos
-        const users = await User.findAll();
+        const users = await getUsersService();
 
         // Envía la lista de usuarios en formato JSON
-        res.status(200).json({
+        res.status(201).json({
             message: 'Usuarios obtenidos con éxito',
-            status: '200',
+            status: '201',
             users,  
         });
     } catch (error) {
@@ -24,42 +24,30 @@ export const getUsers = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-    try {
-        // Obtiene los datos desde el cuerpo de la solicitud
-        const { nombre, correo, contraseña, tipoMembresia, rol, estadoActivo } = req.body;
+    const { nombre, correo, contraseña, tipoMembresia, rol, estadoActivo } = req.body;
 
-        // Verifica que los campos requeridos no estén vacíos
-        if (!nombre || !correo || !contraseña || !tipoMembresia || !rol) {
-            return res.status(400).json({
-                message: 'Todos los campos son obligatorios: nombre, correo, contraseña, tipoMembresia, rol'
-            });
-        }
-
-        // Crea un nuevo usuario con los datos recibidos
-        const user = await User.create({
-            nombre,
-            correo,
-            contraseña,
-            tipoMembresia,
-            rol,
-            estadoActivo: estadoActivo !== undefined ? estadoActivo : true // Valor por defecto a 'true' si no se pasa
+    if (!nombre || !correo || !contraseña || !tipoMembresia || !rol) {
+        return res.status(400).json({
+            message: 'Todos los campos son obligatorios: nombre, correo, contraseña, tipoMembresia, rol'
         });
+    }
 
-        // Responde con los datos del usuario recién creado
+    try {
+        const user = await createUserService(req.body);
+
         return res.status(201).json({
             message: 'Usuario creado exitosamente',
             status: '201',
-            user,
-            
+            data: user,
         });
-
     } catch (error) {
-        console.error('Error al crear usuario:', error);
-
-        // Manejo de errores específicos para que el cliente sepa el problema
+        console.error('Error al crear el usuario:', error);
         return res.status(500).json({
-            message: 'Error al crear el usuario',
-            error: error.message
+            message: error.message || 'Error al crear el usuario',
+            status: '500',
+            error: error.message,
         });
     }
 };
+
+
