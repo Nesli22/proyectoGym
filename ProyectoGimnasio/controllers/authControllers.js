@@ -5,6 +5,7 @@ export const login = async (req, res) => {
 
     if (!correo || !contraseña) {
         return res.status(400).json({
+            status: 'No',
             message: 'El correo y la contraseña son obligatorios',
         });
     }
@@ -13,6 +14,7 @@ export const login = async (req, res) => {
         const user = await getUserByEmailService(correo);
         if (!user) {
             return res.status(404).json({
+                status: 'No',
                 message: 'Usuario no encontrado',
             });
         }
@@ -20,6 +22,7 @@ export const login = async (req, res) => {
         const isPasswordValid = await verifyPassword(contraseña, user.contraseña);
         if (!isPasswordValid) {
             return res.status(401).json({
+                status: 'No',
                 message: 'Credenciales incorrectas',
             });
         }
@@ -27,16 +30,18 @@ export const login = async (req, res) => {
         const token = generateToken(user);
 
         res.status(200).json({
+            status: 'ok',
             message: 'Inicio de sesión exitoso',
             token,
-            nombre: user.nombre,
-            correo: user.correo,
+            usuarioId: user.id,
             rol: user.rol
         });
+
     } catch (error) {
         console.error('Error al iniciar sesión:', error);
 
         res.status(500).json({
+            status: 'No',
             message: 'Error al iniciar sesión',
             error: error.message,
         });

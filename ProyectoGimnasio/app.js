@@ -10,6 +10,7 @@ import Membership from './models/Membership.js';
 import Payment from './models/Payment.js';
 import Report from './models/Report.js';
 import Product from './models/Product.js';
+import CheckIn from './models/Checkin.js';
 
 // Inicializar el servidor Express
 const app = express();
