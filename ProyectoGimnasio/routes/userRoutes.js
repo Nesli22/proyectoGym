@@ -1,13 +1,17 @@
 import { Router } from "express";
-import { getUsers, createUser } from '../controllers/userControllers.js';
+import { getUsers, createUser, getUserById, updateUserById, deleteUserById} from '../controllers/userControllers.js';
 import { authMiddleware, authorizeRoles } from '../middlewares/authMiddleware.js';
 
 const router = Router();
 
-// Ruta para obtener usuarios, accesible solo para Administradores y Empleados
 router.get('/', authMiddleware, authorizeRoles('Administrador', 'Empleado'), getUsers);
 
-// Ruta para crear usuarios, accesible solo para Administradores
-router.post('/', authMiddleware, authorizeRoles('Administrador'), createUser);
+router.post('/', authMiddleware, authorizeRoles('Administrador', 'Empleado'), createUser);
+
+router.get('/:id', authMiddleware, authorizeRoles('Administrador', 'Empleado'), getUserById); 
+
+router.put('/:id', authMiddleware, authorizeRoles('Administrador', 'Empleado'), updateUserById);  
+
+router.delete('/:id', authMiddleware, authorizeRoles('Administrador'), deleteUserById); 
 
 export default router;

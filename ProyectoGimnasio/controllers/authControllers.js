@@ -33,7 +33,7 @@ export const login = async (req, res) => {
             status: 'ok',
             message: 'Inicio de sesión exitoso',
             token,
-            usuarioId: user.id,
+            userId: user.id,
             rol: user.rol
         });
 

@@ -4,6 +4,7 @@ import bcrypt from 'bcrypt';
 import db, { testDbConnection } from './config/Connection.js';  // Conexión a la base de datos
 import userRoutes from './routes/userRoutes.js';  // Rutas de usuarios
 import authRoutes from './routes/authRoutes.js';
+import customerRoutes from './routes/customerRoutes.js';
 
 import User from './models/User.js';
 import Membership from './models/Membership.js';
@@ -42,11 +43,10 @@ async function createAdmin() {
         console.error('Error al crear el administrador:', error);
     }
 }
-
 // Rutas para gestionar usuarios
 app.use('/users', userRoutes);
 app.use('/login', authRoutes);
-
+app.use('/customers', customerRoutes);
 // Función para sincronizar la base de datos
 async function sincronizarDB() {
     try {
