@@ -1,44 +1,30 @@
-import { Sequelize, DataTypes } from "sequelize";
+import { DataTypes, Model } from 'sequelize';
 import sequelize from '../config/Connection.js';
 
-const User = sequelize.define(
-  'User',
-  {
+class User extends Model {}
+
+User.init({
     nombre: {
-      type: DataTypes.STRING,
-      allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     correo: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true, // Validación de formato de correo
-      },
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
     },
     contraseña: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    tipoMembresia: {
-      type: DataTypes.ENUM('Normal', 'Estudiante', 'VIP'),
-      allowNull: false,
+        type: DataTypes.STRING,
+        allowNull: false,
     },
     rol: {
-      type: DataTypes.ENUM('Administrador', 'Empleado', 'Cliente'),
-      allowNull: false,
+        type: DataTypes.ENUM('Administrador', 'Empleado', 'Cliente'),
+        allowNull: false,
     },
     estadoActivo: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: true,
-    },
-
-  },
-  {
-    // Opciones adicionales del modelo
-    tableName: 'users',          // Nombre de la tabla en la base de datos
-    timestamps: true,            // Incluye campos createdAt y updatedAt
-  },
-);
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+    }
+}, { sequelize, modelName: 'User' });
 
 export default User;

@@ -6,7 +6,6 @@ export const getUsersService = async () => {
     return await User.findAll();
 };
 
-
 export const createUserService = async (userData) => {
     try {
         // Encriptar la contraseña antes de crear el usuario

@@ -4,7 +4,12 @@ import bcrypt from 'bcrypt';
 import db, { testDbConnection } from './config/Connection.js';  // Conexión a la base de datos
 import userRoutes from './routes/userRoutes.js';  // Rutas de usuarios
 import authRoutes from './routes/authRoutes.js';
-import User from './models/User.js';  // Importa el modelo User
+
+import User from './models/User.js';
+import Membership from './models/Membership.js';
+import Payment from './models/Payment.js';
+import Report from './models/Report.js';
+import Product from './models/Product.js';
 
 // Inicializar el servidor Express
 const app = express();
@@ -20,12 +25,11 @@ async function createAdmin() {
         const adminExists = await User.findOne({ where: { rol: 'Administrador' } });
 
         if (!adminExists) {
-            const hashedPassword = await bcrypt.hash('contraseña12345', 10);  // Hashea la contraseña
+            const hashedPassword = await bcrypt.hash('nomelase', 10);  // Hashea la contraseña
             await User.create({
                 nombre: 'Administrador',
                 correo: 'administrador@gmail.com',
                 contraseña: hashedPassword,
-                tipoMembresia: 'VIP',
                 rol: 'Administrador',
                 estadoActivo: true,
             });
