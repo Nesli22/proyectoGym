@@ -15,7 +15,7 @@ export const getUsers = async (req, res) => {
     res.status(201).json({
       status: "Ok",
       message: "Usuarios obtenidos con éxito",
-      users,
+      data: users,
     });
   } catch (error) {
     console.error("Error al obtener usuarios:", error);
@@ -46,7 +46,7 @@ export const createUser = async (req, res) => {
     return res.status(201).json({
       status: "Ok",
       message: "Usuario creado exitosamente",
-      usuarioId: user.id,
+      userId: user.id,
       nombre: user.nombre,
     });
   } catch (error) {
