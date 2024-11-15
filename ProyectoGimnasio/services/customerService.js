@@ -49,25 +49,4 @@ export const createReportService = async (userId, descripcion) => {
     }
 };
 
-// Obtener el token desde localStorage
-const token = localStorage.getItem('token');
-if (token) {
-    // Si el token existe, puedes hacer una solicitud con el token
-    fetch('http://localhost:8080/(Las rutas permitidas para el usuario logueado)', {
-        method: 'GET', // O POST dependiendo de la ruta que estés consumiendo
-        headers: {
-            'Authorization': `Bearer ${token}`, // Incluir el token en la cabecera Authorization
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(response => response.json()) // Procesar la respuesta JSON
-    .then(data => {
-        console.log('Respuesta:', data);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-} else {
-    console.error('Token no disponible');
-}
 
