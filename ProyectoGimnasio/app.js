@@ -18,7 +18,11 @@ const app = express();
 const PORT = process.env.SV_PORT || 3000;
 
 // Middleware para parsear JSON
-app.use(cors());
+app.use(cors({
+    origin: '*', // Or '*' for all origins
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
 app.use(express.json());
 
 // Función para crear el primer administrador
