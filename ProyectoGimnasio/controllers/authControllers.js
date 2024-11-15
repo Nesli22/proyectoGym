@@ -32,7 +32,7 @@ export const login = async (req, res) => {
         res.status(200).json({
             status: 'ok',
             message: 'Inicio de sesión exitoso',
-            data: ''+token+''+user.id+''+user.rol
+            data: ''+token+','+user.id+','+user.rol
         });
 
     } catch (error) {
