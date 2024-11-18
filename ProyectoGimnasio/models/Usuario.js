@@ -4,6 +4,7 @@ import sequelize from '../config/Connection.js';
 import Membresia from "./Membresia.js";
 import Queja from "./Queja.js";
 import Entrada from "./Entrada.js";
+import Venta from  "./Venta.js";
 
 const Usuario = sequelize.define(
   "Usuario",
@@ -56,6 +57,11 @@ Usuario.hasMany(Entrada, {
   foreignKey: "usuarioId",
   as: "entradas",
 });
+
+Usuario.hasMany(Venta, {
+  foreignKey: "usuarioId",
+  as: "ventas",
+})
 
 
 export default Usuario;

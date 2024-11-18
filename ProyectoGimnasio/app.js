@@ -1,18 +1,24 @@
 import express from "express";
 import cors from "cors";
 import bcrypt from "bcrypt";
-import db, { testDbConnection } from "./config/Connection.js"; // Conexión a la base de datos
-import userRoutes from "./routes/userRoutes.js"; // Rutas de usuarios
+
+import db, { testDbConnection } from "./config/Connection.js"; 
+
+import userRoutes from "./routes/userRoutes.js"; 
 import authRoutes from "./routes/authRoutes.js";
 import customerRoutes from "./routes/customerRoutes.js";
+import employeesRoutes from "./routes/employeesRoutes.js";
 
 import Usuario from "./models/Usuario.js";
 import Membresia from "./models/Membresia.js";
 import Queja from "./models/Queja.js";
+import Venta from "./models/Venta.js";
+import DetalleVenta from "./models/DetalleVenta.js";
+import Producto from "./models/Producto.js";
 
 // Inicializar el servidor Express
 const app = express();
-const PORT = process.env.SV_PORT || 3000;
+const PORT = process.env.SV_PORT || 8080;
 
 // Middleware para parsear JSON
 app.use(
@@ -59,6 +65,7 @@ async function createAdmin() {
 app.use("/usuarios", userRoutes);
 app.use("/ingresar", authRoutes);
 app.use("/clientes", customerRoutes);
+app.use("/empleados", employeesRoutes);
 
 // Función para sincronizar la base de datos
 async function sincronizarDB() {

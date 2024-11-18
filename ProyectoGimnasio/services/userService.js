@@ -29,12 +29,22 @@ export const getUserByIdService = async (id) => {
 };
 
 export const updateUserByIdService = async (id, userData) => {
+    // Buscar usuario por ID
     const user = await Usuario.findByPk(id);
-    if (user) {
-        return await user.update(userData);
+  
+    if (!user) {
+      return null;
     }
-    return null;
-};
+  
+    // Si se proporciona una nueva contraseña, encriptarla
+    if (userData.contraseña) {
+      const saltRounds = 10;
+      userData.contraseña = await bcrypt.hash(userData.contraseña, saltRounds);
+    }
+  
+    // Actualizar usuario con los nuevos datos
+    return await user.update(userData);
+  };
 
 export const deleteUserByIdService = async (id) => {
     const user = await Usuario.findByPk(id);
