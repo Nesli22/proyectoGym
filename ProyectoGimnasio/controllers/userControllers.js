@@ -9,13 +9,13 @@ import {
 export const getUsers = async (req, res) => {
   try {
     // Obtiene todos los usuarios de la base de datos
-    const users = await getUsersService();
+    const usuarios = await getUsersService();
 
     // Envía la lista de usuarios en formato JSON
     res.status(201).json({
       status: "Ok",
       message: "Usuarios obtenidos con éxito",
-      data: users,
+      data: usuarios,
     });
   } catch (error) {
     console.error("Error al obtener usuarios:", error);

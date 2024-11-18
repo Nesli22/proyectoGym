@@ -1,52 +1,81 @@
-import CheckIn from '../models/Checkin.js';
-import Membership from '../models/Membership.js';
-import Report from '../models/Report.js';
+import Entrada from '../models/Entrada.js';
+import Membresia from '../models/Membresia.js';
+import Usuario from '../models/Usuario.js';
+import Queja from '../models/Queja.js';
 
-// Servicio para crear un check-in
-export const createCheckInService = async (userId, fechaHora = new Date().getTime) => {
-    try {
-        const newCheckIn = await CheckIn.create({
-            userId,
-            fechaHora,
-        });
-        return newCheckIn;
-    } catch (error) {
-        console.error('Error en el servicio de crear check-in:', error);
-        throw new Error('Error al crear el check-in');
-    }
+export const createCheckInService = async (
+  usuarioId,
+  fechaEntrada = new Date()
+) => {
+  try {
+    const nuevaEntrada = await Entrada.create({
+      fechaEntrada,
+      usuarioId,
+    });
+    return nuevaEntrada;
+  } catch (error) {
+    console.error("Error en el servicio de crear la entrada:", error);
+    throw new Error("Error al crear la entrada");
+  }
 };
 
-// Servicio para obtener la membresía de un cliente por su ID
-export const getMembershipByIdService = async (userId) => {
+export const getMembershipByIdService = async (usuarioId) => {
     try {
-        const membership = await Membership.findOne({ where: { userId } });
-        if (!membership) {
-            throw new Error('Membresía no encontrada para el cliente especificado');
-        }
-        return membership;
+      // Busca al usuario por su ID
+      const usuario = await Usuario.findByPk(usuarioId);
+      
+      // Verifica si se encontró al usuario
+      if (!usuario) {
+        throw new Error('Usuario no encontrado');
+      }
+  
+      // Busca la membresía asociada al usuario usando el membresiaId
+      const membresia = await Membresia.findOne({
+        where: { id: usuario.membresiaId },  // Corregir la consulta aquí
+      });
+  
+      // Verifica si se encontró la membresía
+      if (!membresia) {
+        throw new Error('Membresía no encontrada');
+      }
+  
+      // Retorna la membresía asociada al usuario
+      return membresia;
     } catch (error) {
-        console.error('Error en el servicio de obtener membresía:', error);
-        throw new Error(error.message || 'Error al obtener la membresía');
+      console.error('Error en el servicio de obtener membresía:', error);
+      throw new Error(error.message || 'Error al obtener la membresía');
     }
-};
+  };
+  
+  
 
 // Servicio para crear un reporte
-export const createReportService = async (userId, descripcion) => {
+export const createReportService = async (asunto, descripcion, usuarioId) => {
+   
+    if (!asunto) {
+        throw new Error("La descripción del reporte es obligatoria");
+      }
+
     if (!descripcion) {
-        throw new Error('La descripción del reporte es obligatoria');
-    }
+        throw new Error("La descripción del reporte es obligatoria");
+      }
+    
+      if (!usuarioId) {
+        throw new Error("El ID del usuario es obligatorio");
+      }
 
-    try {
-        const newReport = await Report.create({
-            userId,
-            descripcion,
-            fecha: new Date(),
-        });
-        return newReport;
-    } catch (error) {
-        console.error('Error en el servicio de crear reporte:', error);
-        throw new Error('Error al crear el reporte');
-    }
+  try {
+    const nuevaQueja = await Queja.create({
+      asunto,
+      descripcion,
+      fecha: new Date(),
+      usuarioId,
+    });
+    return nuevaQueja;
+  } catch (error) {
+    console.error("Error en el servicio al crear la queja:", error);
+    throw new Error("Error al crear la queja.");
+  }
 };
-
+ 
 

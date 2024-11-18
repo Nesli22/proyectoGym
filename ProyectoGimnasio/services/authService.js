@@ -1,15 +1,15 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import User from '../models/User.js';
+import Usuario from '../models/Usuario.js';
 
 dotenv.config();
 
 export const getUserByEmailService = async (correo) => {
     try {
         // Buscar el usuario en la base de datos por correo
-        const user = await User.findOne({ where: { correo } });
-        return user;
+        const usuario = await Usuario.findOne({ where: { correo } });
+        return usuario;
     } catch (error) {
         console.error('Error al obtener el usuario por correo:', error);
         throw new Error('Error al obtener el usuario');
@@ -26,10 +26,10 @@ export const verifyPassword = async (inputPassword, storedPassword) => {
     }
 };
 
-export const generateToken = (user) => {
+export const generateToken = (usuario) => {
     // Generar el JWT utilizando el id del usuario y su rol
     return jwt.sign(
-        { userId: user.id, rol: user.rol },
+        { usuarioId: usuario.id, rol: usuario.rol },
         process.env.JWT_SECRET, // Variable de entorno para la clave secreta
         { expiresIn: '1h' }
     );
