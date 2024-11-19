@@ -62,7 +62,31 @@ async function createDataPrincipal() {
         fechaVencimiento: null,
       });
 
-      console.log("Administrador creado exitosamente");
+      await Usuario.create({
+        nombre: "Empleado",
+        correo: "empleado@gmail.com",
+        contraseña: hashedPassword,
+        rol: "Empleado",
+        estadoActivo: true,
+        fechaRegistro: new Date(),
+        membresiaId: 2, // Asegúrate de que esta membresía exista o se cree primero
+        fechaInicio: null,
+        fechaVencimiento: null,
+      });
+
+      await Usuario.create({
+        nombre: "Cliente",
+        correo: "cliente@gmail.com",
+        contraseña: hashedPassword,
+        rol: "Cliente",
+        estadoActivo: true,
+        fechaRegistro: new Date(),
+        membresiaId: 1, // Asegúrate de que esta membresía exista o se cree primero
+        fechaInicio: null,
+        fechaVencimiento: null,
+      });
+
+      console.log("Administrador, Empleado, Cliente creado exitosamente");
     } else {
       console.log("Ya existe un administrador registrado.");
     }
