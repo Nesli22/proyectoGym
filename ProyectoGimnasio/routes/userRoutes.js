@@ -8,7 +8,7 @@ router.get('/', authMiddleware, authorizeRoles('Administrador', 'Empleado'), get
 
 router.post('/', authMiddleware, authorizeRoles('Administrador', 'Empleado'), createUser);
 
-router.get('/', authMiddleware, authorizeRoles('Administrador', 'Empleado', 'Cliente'), getUserById); 
+router.get('/:id', authMiddleware, authorizeRoles('Administrador', 'Empleado', 'Cliente'), getUserById); 
 
 router.put('/:id', authMiddleware, authorizeRoles('Administrador', 'Empleado'), updateUserById);  
 

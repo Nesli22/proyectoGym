@@ -60,9 +60,9 @@ export const createUser = async (req, res) => {
 };
 
 export const getUserById = async (req, res) => {
-  const { usuarioId } = req.body;
+  const { id } = req.params;
   try {
-    const user = await getUserByIdService(usuarioId);
+    const user = await getUserByIdService(id);
     if (user) {
       return res.status(200).json({
         status: "Ok",
