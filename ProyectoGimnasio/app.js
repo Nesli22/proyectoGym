@@ -30,9 +30,16 @@ app.use(
 );
 app.use(express.json());
 
-// Función para crear el primer administrador
-async function createAdmin() {
+async function createDataPrincipal() {
   try {
+    // Ejecuta el script SQL para insertar las membresías
+    await db.query(`
+          INSERT INTO membresias (tipo, costo, duracion_meses)
+          VALUES
+            ('Normal', 500, 3),       -- Membresía Normal: costo de 500, duración de 3 meses
+            ('Estudiante', 300, 5),   -- Membresía Estudiante: costo de 300, duración de 5 meses
+            ('VIP', 1000, 12);        -- Membresía VIP: costo de 1000, duración de 12 meses
+        `);
     // Verifica si ya existe un administrador
     const adminExists = await Usuario.findOne({
       where: { rol: "Administrador" },
@@ -50,16 +57,24 @@ async function createAdmin() {
         rol: "Administrador",
         estadoActivo: true,
         fechaRegistro: new Date(),
+        membresiaId: 3, // Asegúrate de que esta membresía exista o se cree primero
+        fechaInicio: null,
+        fechaVencimiento: null,
       });
 
       console.log("Administrador creado exitosamente");
     } else {
       console.log("Ya existe un administrador registrado.");
     }
+
+    console.log("Datos de membresías insertados exitosamente");
   } catch (error) {
-    console.error("Error al crear el administrador:", error);
+    console.error("Error en la inicialización de datos:", error);
   }
 }
+
+export default createDataPrincipal;
+
 
 // Rutas para gestionar usuarios
 app.use("/usuarios", userRoutes);
@@ -75,7 +90,7 @@ async function sincronizarDB() {
  
     console.log("La base de datos ha sido sincronizada con éxito.");
     // Crear el administrador después de sincronizar la base de datos
-    await createAdmin();
+    await createDataPrincipal();
   } catch (error) {
     console.error("Error al sincronizar la base de datos:", error);
   }
