@@ -21,7 +21,8 @@ export const authMiddleware = (req, res, next) => {
 // Middleware para verificar roles
 export const authorizeRoles = (...allowedRoles) => {
     return (req, res, next) => {
-        if (!req.user || !allowedRoles.includes(req.user.rol)) {
+
+        if (!allowedRoles.includes(req.user)) {
             return res.status(403).json({ message: 'Acceso denegado' });
         }
         next();

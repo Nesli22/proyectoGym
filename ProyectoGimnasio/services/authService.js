@@ -8,8 +8,8 @@ dotenv.config();
 export const getUserByEmailService = async (correo) => {
     try {
         // Buscar el usuario en la base de datos por correo
-        const usuario = await Usuario.findOne({ where: { correo } });
-        return usuario;
+        const user = await Usuario.findOne({ where: { correo } });
+        return user;
     } catch (error) {
         console.error('Error al obtener el usuario por correo:', error);
         throw new Error('Error al obtener el usuario');
@@ -26,10 +26,10 @@ export const verifyPassword = async (inputPassword, storedPassword) => {
     }
 };
 
-export const generateToken = (usuario) => {
+export const generateToken = (user) => {
     // Generar el JWT utilizando el id del usuario y su rol
     return jwt.sign(
-        { usuarioId: usuario.id, rol: usuario.rol },
+        { usuarioId: user.id, rol: user.rol },
         process.env.JWT_SECRET, // Variable de entorno para la clave secreta
         { expiresIn: '1h' }
     );
