@@ -97,9 +97,6 @@ async function createDataPrincipal() {
   }
 }
 
-export default createDataPrincipal;
-
-
 // Rutas para gestionar usuarios
 app.use("/usuarios", userRoutes);
 app.use("/ingresar", authRoutes);
