@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createMemberShip, getMemberShips, addProduct, getAllProducts , updateProduct, deleteProduct} from '../controllers/employeeControllers.js';
+import { createMemberShip, getMemberShips, addProduct, getAllProducts , updateProductById, deleteProductById} from '../controllers/employeeControllers.js';
 import { authMiddleware, authorizeRoles } from '../middlewares/authMiddleware.js';
 
 const router = Router();
@@ -12,8 +12,8 @@ router.post('/producto', authMiddleware, authorizeRoles('Administrador', 'Emplea
 
 router.get('/producto', authMiddleware, authorizeRoles('Administrador', 'Empleado'), getAllProducts);
 
-router.put('/producto', authMiddleware, authorizeRoles('Administrador', 'Empleado'), updateProduct);
+router.put('/producto/:id', authMiddleware, authorizeRoles('Administrador', 'Empleado'), updateProductById);
 
-router.delete('/producto', authMiddleware, authorizeRoles('Administrador', 'Empleado'), deleteProduct);
+router.delete('/producto/:id', authMiddleware, authorizeRoles('Administrador', 'Empleado'), deleteProductById);
 
 export default router;

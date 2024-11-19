@@ -120,14 +120,51 @@ export const addProduct = async (req, res) => {
     });
   }
 };
-
 // Actualizar un producto
-export const updateProduct = async (req, res) => {
+export const updateProductById = async (req, res) => {
   const { id } = req.params;
-  const {nombre, precio, cantidad} = req.body;
+  const { nombre, precio, cantidad } = req.body;
+
+  // Validaciones básicas
+  if (!id || isNaN(id)) {
+    return res.status(400).json({
+      status: "No",
+      message: "El ID del producto es inválido o no está definido",
+    });
+  }
+
+  if (!nombre || typeof nombre !== "string" || nombre.trim() === "") {
+    return res.status(400).json({
+      status: "No",
+      message: "El nombre del producto es obligatorio y debe ser una cadena válida",
+    });
+  }
+
+  if (precio === undefined || isNaN(precio) || precio < 0) {
+    return res.status(400).json({
+      status: "No",
+      message: "El precio del producto debe ser un número válido y no negativo",
+    });
+  }
+
+  if (cantidad === undefined || isNaN(cantidad) || cantidad < 0) {
+    return res.status(400).json({
+      status: "No",
+      message: "La cantidad del producto debe ser un número válido y no negativo",
+    });
+  }
 
   try {
+    const productData = { nombre, precio, cantidad };
     const updatedProduct = await updateProductByIdService(id, productData);
+
+    if (!updatedProduct) {
+      return res.status(404).json({
+        status: "No",
+        message: "Producto no encontrado",
+      });
+    }
+
     res.status(200).json({
       status: "Ok",
       message: "Producto actualizado con éxito",
@@ -144,11 +181,28 @@ export const updateProduct = async (req, res) => {
 };
 
 // Eliminar un producto
-export const deleteProduct = async (req, res) => {
+export const deleteProductById = async (req, res) => {
   const { id } = req.params;
 
+  // Validación básica del ID
+  if (!id || isNaN(id)) {
+    return res.status(400).json({
+      status: "No",
+      message: "El ID del producto es inválido o no está definido",
+    });
+  }
+
   try {
-    await deleteProductByIdService(productId);
+    const result = await deleteProductByIdService(id);
+
+    // Validar si el producto existía
+    if (!result) {
+      return res.status(404).json({
+        status: "No",
+        message: "Producto no encontrado",
+      });
+    }
+
     res.status(200).json({
       status: "Ok",
       message: "Producto eliminado con éxito",
@@ -162,3 +216,4 @@ export const deleteProduct = async (req, res) => {
     });
   }
 };
+
