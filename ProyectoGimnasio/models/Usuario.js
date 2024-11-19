@@ -34,6 +34,14 @@ const Usuario = sequelize.define(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
+    fechaInicio: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    fechaVencimiento: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    }
   },
   {
     tableName: "usuarios",
