@@ -43,6 +43,7 @@ const Usuario = sequelize.define(
 
 Membresia.hasOne(Usuario, {
   foreignKey: "membresiaId",
+  defaultValue: 1,
   as: "usuario",
 });
 
