@@ -1,6 +1,8 @@
 import {
   createMemberShipService,
   getAllMemberShipsService,
+  updateReportByIdService,
+  findReportByIdService,
 } from "../services/employeeService.js";
 
 import {
@@ -214,6 +216,43 @@ export const deleteProductById = async (req, res) => {
       message: "Error al eliminar producto",
       error: error.message,
     });
+  }
+};
+
+export const updateReportById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { estado, atendidoPor } = req.body;
+
+    // Validaciones básicas
+    if (!id) {
+      return res.status(400).json({ message: 'El ID de la queja es requerido' });
+    }
+
+    if (!estado || typeof estado !== 'string') {
+      return res
+        .status(400)
+        .json({ message: 'El estado es requerido y debe ser un texto válido' });
+    }
+
+    if (atendidoPor && typeof atendidoPor !== 'number') {
+      return res
+        .status(400)
+        .json({ message: 'El campo "atendidoPor" debe ser un número válido' });
+    }
+
+    // Verificar si la queja existe
+    const queja = await findReportByIdService(id);
+    if (!queja) {
+      return res.status(404).json({ message: 'Queja no encontrada' });
+    }
+
+    // Llamar al servicio para actualizar la queja
+    const updatedQueja = await updateReportByIdService(id, { estado, atendidoPor });
+
+    res.status(200).json({ message: 'Queja actualizada con éxito', updatedQueja });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al actualizar la queja', error: error.message });
   }
 };
 

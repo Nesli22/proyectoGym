@@ -71,5 +71,10 @@ Usuario.hasMany(Venta, {
   as: "ventas",
 })
 
+Usuario.hasMany(Queja, {
+  foreignKey: "atendidoPor",
+  as: "Quejas",
+})
+
 
 export default Usuario;

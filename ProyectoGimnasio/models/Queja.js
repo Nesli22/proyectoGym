@@ -16,6 +16,11 @@ const Queja = sequelize.define(
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
+    estado: {
+      type: DataTypes.TEXT,
+      defaultValue: 'Pendiente',
+      allowNull: false,
+    },
   },
   {
     tableName: 'quejas',
