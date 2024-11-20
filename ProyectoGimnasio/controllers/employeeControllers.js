@@ -222,7 +222,7 @@ export const deleteProductById = async (req, res) => {
 export const updateReportById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { estado, atendidoPor } = req.body;
+    const { estado, observacion, atendidoPor } = req.body;
 
     // Validaciones básicas
     if (!id) {
@@ -233,6 +233,12 @@ export const updateReportById = async (req, res) => {
       return res
         .status(400)
         .json({ message: 'El estado es requerido y debe ser un texto válido' });
+    }
+
+    if (!observacion || typeof observacion !== 'string') {
+      return res
+        .status(400)
+        .json({ message: 'La observación es requerida y debe ser un texto válido' });
     }
 
     if (atendidoPor && typeof atendidoPor !== 'number') {
@@ -248,7 +254,7 @@ export const updateReportById = async (req, res) => {
     }
 
     // Llamar al servicio para actualizar la queja
-    const updatedQueja = await updateReportByIdService(id, { estado, atendidoPor });
+    const updatedQueja = await updateReportByIdService(id, { estado, observacion, atendidoPor });
 
     res.status(200).json({ message: 'Queja actualizada con éxito', updatedQueja });
   } catch (error) {

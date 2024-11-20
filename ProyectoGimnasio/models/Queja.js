@@ -21,6 +21,10 @@ const Queja = sequelize.define(
       defaultValue: 'Pendiente',
       allowNull: false,
     },
+    observacion:{
+      type: DataTypes.TEXT,
+      allowNull: true,
+    }
   },
   {
     tableName: 'quejas',
