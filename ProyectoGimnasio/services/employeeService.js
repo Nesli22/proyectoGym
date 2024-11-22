@@ -39,8 +39,8 @@ export const createPaymentService = async (paymentData) => {
     // Crear el registro de pago
     const nuevoPago = await Pago.create(paymentData);
 
-    const fechaInicio = moment().tz("America/Hermosillo");
-    const fechaVencimiento = moment().tz("America/Hermosillo");
+    const fechaInicio = new Date(); 
+    let fechaVencimiento = new Date(fechaInicio); 
 
     // Asignar la duración según el tipo de membresía
     switch (tipo.toLowerCase()) {
@@ -73,6 +73,7 @@ export const createPaymentService = async (paymentData) => {
     throw new Error(error.message);
   }
 };
+
 
 export const findReportByIdService = async (id) => {
   return await Queja.findByPk(id);
