@@ -122,6 +122,7 @@ export const addProduct = async (req, res) => {
     });
   }
 };
+
 // Actualizar un producto
 export const updateProductById = async (req, res) => {
   const { id } = req.params;

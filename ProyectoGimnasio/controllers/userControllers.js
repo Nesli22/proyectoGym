@@ -32,11 +32,11 @@ export const getUsers = async (req, res) => {
 export const createUser = async (req, res) => {
   const { nombre, correo, contraseña, rol, fechaInicio, fechaVencimiento,membresiaId } = req.body;
 
-  if (!nombre || !correo || !contraseña || !rol || !fechaInicio || !fechaVencimiento||!membresiaId) {
+  if (!nombre || !correo || !contraseña || !rol) {
     return res.status(400).json({
       status: "No",
       message:
-        "Todos los campos son obligatorios: nombre, correo, contraseña, rol, fechaInicio, fechaVencimiento, membresiaId",
+        "Todos los campos son obligatorios: nombre, correo, contraseña, rol",
     });
   }
 
