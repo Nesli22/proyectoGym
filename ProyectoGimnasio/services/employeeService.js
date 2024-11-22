@@ -1,18 +1,15 @@
 import moment from 'moment-timezone';
 
-
 import Membresia from "../models/Membresia.js";
 import Queja from "../models/Queja.js";
 import Pago from "../models/Pago.js";
 
 import { updateUserByIdService } from "../services/userService.js";
 
-// Servicio para crear una membresía
 export const createMemberShipService = async (membershipData) => {
   return await Membresia.create(membershipData);
 };
 
-// Servicio para obtener todas las membresías
 export const getAllMemberShipsService = async () => {
   return await Membresia.findAll();
 };
@@ -65,7 +62,6 @@ export const createPaymentService = async (paymentData) => {
     // Actualizar el estadoActivo y las fechas del usuario
     if (usuarioId) {
       await updateUserByIdService(usuarioId, {
-        estadoActivo: true,
         fechaInicio,
         fechaVencimiento,
       });

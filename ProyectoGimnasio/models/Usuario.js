@@ -29,7 +29,7 @@ const Usuario = sequelize.define(
     },
     estadoActivo: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false,
+      defaultValue: true,
     },
     fechaRegistro: {
       type: DataTypes.DATE,
