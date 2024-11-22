@@ -5,6 +5,7 @@ import Membresia from "./Membresia.js";
 import Queja from "./Queja.js";
 import Entrada from "./Entrada.js";
 import Venta from  "./Venta.js";
+import Pago from "./Pago.js";
 
 const Usuario = sequelize.define(
   "Usuario",
@@ -28,7 +29,7 @@ const Usuario = sequelize.define(
     },
     estadoActivo: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true,
+      defaultValue: false,
     },
     fechaRegistro: {
       type: DataTypes.DATE,
@@ -76,5 +77,9 @@ Usuario.hasMany(Queja, {
   as: "Quejas",
 })
 
+Usuario.hasMany(Pago, {
+  foreignKey: "usuarioId",
+  as: "Pagos",
+})
 
 export default Usuario;

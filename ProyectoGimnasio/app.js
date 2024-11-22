@@ -81,7 +81,7 @@ async function createDataPrincipal() {
         rol: "Cliente",
         estadoActivo: true,
         fechaRegistro: new Date(),
-        membresiaId: 1, // Asegúrate de que esta membresía exista o se cree primero
+        membresiaId: null, // Asegúrate de que esta membresía exista o se cree primero
         fechaInicio: null,
         fechaVencimiento: null,
       });

@@ -3,6 +3,7 @@ import {
   getAllMemberShipsService,
   updateReportByIdService,
   findReportByIdService,
+  createPaymentService
 } from "../services/employeeService.js";
 
 import {
@@ -74,6 +75,60 @@ export const getAllProducts = async (req, res) => {
     res.status(500).json({
       status: "No",
       message: "Error al obtener productos",
+      error: error.message,
+    });
+  }
+};
+
+export const createPayment = async (req, res) => {
+  try {
+    // Obtener datos del cuerpo de la petición
+    const { tipo, metodoPago, monto, referencia, usuarioId } = req.body;
+
+    // Validaciones básicas
+    if (!tipo) {
+      return res.status(400).json({
+        message: 'El campo "tipo" es obligatorio.',
+      });
+    }
+
+    if (!metodoPago) {
+      return res.status(400).json({
+        message: 'El campo "metodoPago" es obligatorio.',
+      });
+    }
+
+    if (!monto) {
+      return res.status(400).json({
+        message: 'El campo "monto" es obligatorio.',
+      });
+    }
+
+    if (isNaN(monto) || monto <= 0) {
+      return res.status(400).json({
+        message: 'El campo "monto" debe ser un número positivo.',
+      });
+    }
+
+    if (!usuarioId) {
+      return res.status(400).json({
+        message: 'El campo "usuarioId" es obligatorio.',
+      });
+    }
+
+    // Llamar al servicio para registrar el pago
+    const nuevoPago = await createPaymentService(req.body);
+
+    // Responder con el pago creado
+    res.status(201).json({
+      message: 'Pago registrado exitosamente.',
+      data: nuevoPago,
+    });
+          
+  } catch (error) {
+    console.error('Error al crear el pago:', error);
+    res.status(500).json({
+      message: 'Hubo un error al registrar el pago.',
       error: error.message,
     });
   }

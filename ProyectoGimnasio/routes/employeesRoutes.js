@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createMemberShip, getMemberShips, addProduct, getAllProducts , updateProductById, deleteProductById, updateReportById} from '../controllers/employeeControllers.js';
+import { createMemberShip, getMemberShips, addProduct, getAllProducts , updateProductById, deleteProductById, updateReportById, createPayment} from '../controllers/employeeControllers.js';
 import { authMiddleware, authorizeRoles } from '../middlewares/authMiddleware.js';
 
 const router = Router();
@@ -7,6 +7,12 @@ const router = Router();
 router.post('/membresia', authMiddleware, authorizeRoles('Administrador', 'Empleado'), createMemberShip);
 
 router.get('/membresia', authMiddleware, authorizeRoles('Administrador', 'Empleado'), getMemberShips);
+
+router.put('/queja/:id', authMiddleware,authorizeRoles('Administrador', 'Empleado'), updateReportById);
+
+router.post('/pago', authMiddleware, authorizeRoles('Administrador', 'Empleado'), createPayment);
+
+
 
 router.post('/producto', authMiddleware, authorizeRoles('Administrador', 'Empleado'), addProduct);
 
@@ -16,6 +22,6 @@ router.put('/producto/:id', authMiddleware, authorizeRoles('Administrador', 'Emp
 
 router.delete('/producto/:id', authMiddleware, authorizeRoles('Administrador', 'Empleado'), deleteProductById);
 
-router.put('/queja/:id', authMiddleware,authorizeRoles('Administrador', 'Empleado'), updateReportById);
+
 
 export default router;
