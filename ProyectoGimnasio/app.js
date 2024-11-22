@@ -57,9 +57,6 @@ async function createDataPrincipal() {
         rol: "Administrador",
         estadoActivo: true,
         fechaRegistro: new Date(),
-        membresiaId: 3, // Asegúrate de que esta membresía exista o se cree primero
-        fechaInicio: null,
-        fechaVencimiento: null,
       });
 
       await Usuario.create({
@@ -69,9 +66,6 @@ async function createDataPrincipal() {
         rol: "Empleado",
         estadoActivo: true,
         fechaRegistro: new Date(),
-        membresiaId: 2, // Asegúrate de que esta membresía exista o se cree primero
-        fechaInicio: null,
-        fechaVencimiento: null,
       });
 
       await Usuario.create({
@@ -81,9 +75,6 @@ async function createDataPrincipal() {
         rol: "Cliente",
         estadoActivo: true,
         fechaRegistro: new Date(),
-        membresiaId: null, // Asegúrate de que esta membresía exista o se cree primero
-        fechaInicio: null,
-        fechaVencimiento: null,
       });
 
       console.log("Administrador, Empleado, Cliente creado exitosamente");
