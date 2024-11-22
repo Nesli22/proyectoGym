@@ -72,7 +72,7 @@ Usuario.hasMany(Venta, {
 
 Usuario.hasMany(Queja, {
   foreignKey: "atendidoPor",
-  as: "quejas",
+  as: "Quejas",
 })
 
 Usuario.hasMany(Pago, {
