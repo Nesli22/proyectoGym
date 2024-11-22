@@ -55,13 +55,11 @@ Membresia.hasOne(Usuario, {
   as: "usuario",
 });
 
-// Relación 1 a muchos con Queja
 Usuario.hasMany(Queja, {
   foreignKey: "usuarioId",
   as: "quejas",
 });
 
-// Relación 1 a muchos con Entrada
 Usuario.hasMany(Entrada, {
   foreignKey: "usuarioId",
   as: "entradas",
@@ -74,12 +72,17 @@ Usuario.hasMany(Venta, {
 
 Usuario.hasMany(Queja, {
   foreignKey: "atendidoPor",
-  as: "Quejas",
+  as: "quejas",
 })
 
 Usuario.hasMany(Pago, {
   foreignKey: "usuarioId",
-  as: "Pagos",
+  as: "pagos",
+})
+
+Usuario.hasMany(Pago, {
+  foreignKey: "empleadoId",
+  as: "pagosEmpleado" 
 })
 
 export default Usuario;

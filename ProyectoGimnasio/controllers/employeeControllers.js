@@ -83,7 +83,7 @@ export const getAllProducts = async (req, res) => {
 export const createPayment = async (req, res) => {
   try {
     // Obtener datos del cuerpo de la petición
-    const { tipo, metodoPago, monto, referencia, usuarioId } = req.body;
+    const { tipo, metodoPago, monto, referencia, usuarioId, empleadoId } = req.body;
 
     // Validaciones básicas
     if (!tipo) {
@@ -116,6 +116,12 @@ export const createPayment = async (req, res) => {
       });
     }
 
+    if (!empleadoId){
+      return res.status(400).json({
+        message: 'El campo "empleadoId" es obligatorio.',
+      });
+    }
+
     // Llamar al servicio para registrar el pago
     const nuevoPago = await createPaymentService(req.body);
 
@@ -124,7 +130,7 @@ export const createPayment = async (req, res) => {
       message: 'Pago registrado exitosamente.',
       data: nuevoPago,
     });
-          
+
   } catch (error) {
     console.error('Error al crear el pago:', error);
     res.status(500).json({
