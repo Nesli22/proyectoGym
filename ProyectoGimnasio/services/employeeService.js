@@ -3,6 +3,7 @@ import moment from 'moment-timezone';
 import Membresia from "../models/Membresia.js";
 import Queja from "../models/Queja.js";
 import Pago from "../models/Pago.js";
+import Usuario from "../models/Usuario.js";
 
 import { updateUserByIdService } from "../services/userService.js";
 
