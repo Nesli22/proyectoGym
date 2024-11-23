@@ -32,4 +32,6 @@ const Queja = sequelize.define(
   }
 );
 
+Queja.belongsTo(Usuario, { foreignKey: 'usuarioId', as: 'usuario' });
+
 export default Queja;
