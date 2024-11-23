@@ -81,5 +81,13 @@ export const findReportByIdService = async (id) => {
 };
 
 export const getReportsService = async () => {
-  return await Queja.findAll();
+  return await Queja.findAll({
+    include: [
+      {
+        model: Usuario,
+        as: 'usuario',
+        attributes: ['nombre'], // Selecciona sólo el campo 'nombre'
+      },
+    ],
+  });
 }
