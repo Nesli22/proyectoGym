@@ -3,7 +3,8 @@ import {
   getAllMemberShipsService,
   updateReportByIdService,
   findReportByIdService,
-  createPaymentService
+  createPaymentService,
+  getReportsService
 } from "../services/employeeService.js";
 
 import {
@@ -324,3 +325,20 @@ export const updateReportById = async (req, res) => {
   }
 };
 
+export const getReports = async (req, res) => {
+  try {
+    const reports = await getReportsService();
+    return res.status(200).json({
+      status: "Ok",
+      message: "Quejas obtenidas con éxito",
+      data: reports,
+    });
+  } catch (error) {
+    console.error("Error al obtener quejas:", error);
+    res.status(500).json({
+      status: "No",
+      message: "Error al obtener quejas",
+      error: error.message,
+    });
+  }
+};

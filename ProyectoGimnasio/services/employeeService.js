@@ -76,7 +76,10 @@ export const createPaymentService = async (paymentData) => {
   }
 };
 
-
 export const findReportByIdService = async (id) => {
   return await Queja.findByPk(id);
 };
+
+export const getReportsService = async () => {
+  return await Queja.findAll();
+}
