@@ -32,14 +32,7 @@ app.use(express.json());
 
 async function createDataPrincipal() {
   try {
-    // Ejecuta el script SQL para insertar las membresías
-    await db.query(`
-          INSERT INTO membresias (tipo, costo, duracion_meses)
-          VALUES
-            ('Normal', 500, 3),       -- Membresía Normal: costo de 500, duración de 3 meses
-            ('Estudiante', 300, 5),   -- Membresía Estudiante: costo de 300, duración de 5 meses
-            ('VIP', 1000, 12);        -- Membresía VIP: costo de 1000, duración de 12 meses
-        `);
+  
     // Verifica si ya existe un administrador
     const adminExists = await Usuario.findOne({
       where: { rol: "Administrador" },
@@ -76,6 +69,15 @@ async function createDataPrincipal() {
         estadoActivo: true,
         fechaRegistro: new Date(),
       });
+
+        // Ejecuta el script SQL para insertar las membresías
+    await db.query(`
+      INSERT INTO membresias (tipo, costo, duracion_meses)
+      VALUES
+        ('Normal', 500, 3),       -- Membresía Normal: costo de 500, duración de 3 meses
+        ('Estudiante', 300, 5),   -- Membresía Estudiante: costo de 300, duración de 5 meses
+        ('VIP', 1000, 12);        -- Membresía VIP: costo de 1000, duración de 12 meses
+    `);
 
       console.log("Administrador, Empleado, Cliente creado exitosamente");
     } else {

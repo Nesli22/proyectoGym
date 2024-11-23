@@ -6,7 +6,7 @@ const router = Router();
 
 router.post('/entrada', authMiddleware, authorizeRoles('Administrador', 'Cliente'), createCheckIn);
 
-router.post('/membresia', authMiddleware, authorizeRoles('Administrador', 'Cliente'), getMemberShipById);
+router.post('/membresia', authMiddleware, authorizeRoles('Administrador', 'Empleado','Cliente'), getMemberShipById);
 
 router.post('/queja', authMiddleware, authorizeRoles('Administrador', 'Cliente'), createReport); 
 

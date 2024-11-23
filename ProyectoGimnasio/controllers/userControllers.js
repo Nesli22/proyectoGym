@@ -30,7 +30,7 @@ export const getUsers = async (req, res) => {
 };
 
 export const createUser = async (req, res) => {
-  const { nombre, correo, contraseña, rol, fechaInicio, fechaVencimiento,membresiaId } = req.body;
+  const { nombre, correo, contraseña, rol, fechaInicio, fechaVencimiento,membresiaId,estadoActivo } = req.body;
 
   if (!nombre || !correo || !contraseña || !rol) {
     return res.status(400).json({

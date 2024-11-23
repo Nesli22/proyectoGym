@@ -61,9 +61,11 @@ export const createPaymentService = async (paymentData) => {
 
     // Actualizar el estadoActivo y las fechas del usuario
     if (usuarioId) {
+      const estadoActivo=true;
       await updateUserByIdService(usuarioId, {
         fechaInicio,
         fechaVencimiento,
+        estadoActivo
       });
     }
 
