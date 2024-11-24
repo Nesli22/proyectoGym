@@ -75,16 +75,12 @@ Usuario.hasMany(Queja, {
   as: "Quejas",
 })
 
-Usuario.hasMany(Pago, {
-  foreignKey: "usuarioId",
-  as: "pagos",
-})
-
-Usuario.hasMany(Pago, {
-  foreignKey: "empleadoId",
-  as: "pagosEmpleado" 
-})
+Usuario.hasMany(Pago, { as: 'pagosRealizados', foreignKey: 'usuarioId' });
+Usuario.hasMany(Pago, { as: 'pagosAtendidos', foreignKey: 'empleadoId' });
 
 Queja.belongsTo(Usuario, { foreignKey: 'usuarioId', as: 'usuario' });
+
+Pago.belongsTo(Usuario, { as: 'usuario', foreignKey: 'usuarioId' });
+Pago.belongsTo(Usuario, { as: 'empleado', foreignKey: 'empleadoId' });
 
 export default Usuario;

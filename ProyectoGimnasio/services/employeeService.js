@@ -78,7 +78,20 @@ export const createPaymentService = async (paymentData) => {
 };
 
 export const getPaymentsService = async () => {
-  return await Pago.findAll();
+  return await Pago.findAll({
+    include: [
+      {
+        model: Usuario,
+        as: 'usuario', // Asociación para el usuario que realizó el pago
+        attributes: ['id', 'nombre'], // Incluye el id y el nombre
+      },
+      {
+        model: Usuario,
+        as: 'empleado', // Asociación para el empleado que atendió el pago
+        attributes: ['id', 'nombre'], // Incluye el id y el nombre
+      },
+    ],
+  });
 };
 
 export const findReportByIdService = async (id) => {

@@ -1,5 +1,6 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import sequelize from '../config/Connection.js';
+import Usuario from '../models/Usuario.js';
 
 const Pago = sequelize.define(
   'Pago',
@@ -26,5 +27,7 @@ const Pago = sequelize.define(
     timestamps: true, 
   }
 );
+
+
 
 export default Pago;
