@@ -84,7 +84,6 @@ export const getUserById = async (req, res) => {
   }
 };
 
-import { updateUserByIdService } from '../services/userService'; // Suponiendo que el servicio está en esta ruta
 
 export const updateUserById = async (req, res) => {
   const { id } = req.params;
