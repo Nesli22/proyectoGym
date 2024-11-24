@@ -6,11 +6,7 @@ import DetalleVenta from './DetalleVenta.js'
 const Venta = sequelize.define(
   'Venta',
   {
-    nombre: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    precio: {
+    total: {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
@@ -29,5 +25,6 @@ Venta.hasMany(DetalleVenta, {
     foreignKey: "ventaId",
     as: "ventas",
 })
+
 
 export default Venta;

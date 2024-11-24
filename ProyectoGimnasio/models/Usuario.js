@@ -66,7 +66,7 @@ Usuario.hasMany(Entrada, {
 });
 
 Usuario.hasMany(Venta, {
-  foreignKey: "usuarioId",
+  foreignKey: "empleadoId",
   as: "ventas",
 })
 

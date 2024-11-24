@@ -31,7 +31,7 @@ export const generateToken = (user) => {
     return jwt.sign(
         { usuarioId: user.id, rol: user.rol },
         process.env.JWT_SECRET, // Variable de entorno para la clave secreta
-        { expiresIn: '1h' }
+        { expiresIn: '10h' }
     );
 };
 

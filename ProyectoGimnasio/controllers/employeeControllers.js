@@ -5,7 +5,9 @@ import {
   findReportByIdService,
   createPaymentService,
   getReportsService,
-  getPaymentsService
+  getPaymentsService,
+  getVentasService,
+  createVentaService
 } from "../services/employeeService.js";
 
 import {
@@ -13,6 +15,7 @@ import {
   createProductService,
   deleteProductByIdService,
   updateProductByIdService,
+  getStockProductByIdService,
 } from "../services/productService.js";
 
 // Controlador para crear una membresía
@@ -203,7 +206,6 @@ export const addProduct = async (req, res) => {
     });
   }
 };
-
 // Actualizar un producto
 export const updateProductById = async (req, res) => {
   const { id } = req.params;
@@ -263,7 +265,6 @@ export const updateProductById = async (req, res) => {
     });
   }
 };
-
 // Eliminar un producto
 export const deleteProductById = async (req, res) => {
   const { id } = req.params;
@@ -361,3 +362,69 @@ export const getReports = async (req, res) => {
     });
   }
 };
+
+export const getStockProductById = async (req, res) => {
+  const { id } = req.params; // Obtiene el id del producto desde los parámetros de la URL
+
+  try {
+    const producto = await getStockProductByIdService(id); // Llama al servicio
+    res.status(200).json({
+      success: true,
+      data: producto, // Envía el producto como respuesta
+    });
+  } catch (error) {
+    res.status(404).json({
+      success: false,
+      message: error.message, // Devuelve el mensaje de error
+    });
+  }
+};
+
+export const getVentas = async (req, res) => {
+  try {
+    const ventas = await getVentasService();
+    res.status(200).json({
+      status: "Ok",
+      data: ventas,
+    });
+  } catch (error) {
+    res.status(404).json({
+      status: "No",
+      message: error.message, 
+    });
+  }
+}
+
+export const createVenta = async (req, res) => {
+  let { total, cantidad, empleadoId } = req.body;
+
+  // Validación básica
+  if (!total || !cantidad || !empleadoId) {
+    return res.status(400).json({
+      status: "No",
+      message: 'Faltan parámetros para realizar la venta',
+    });
+  }
+
+  try {
+    // Crear la venta
+    const nuevaVenta = await createVentaService(req.body);
+
+    // Responder con éxito
+    res.status(201).json({
+      status: "Ok",
+      message: 'Venta registrada con éxito',
+      data: nuevaVenta,
+    });
+  } catch (error) {
+    // Manejo de errores
+    res.status(500).json({
+      status: "No",
+      message: error.message,
+    });
+  }
+};
+
+export const createDetalleVenta = async (req, res) => {
+  
+}

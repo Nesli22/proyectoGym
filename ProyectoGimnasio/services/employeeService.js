@@ -4,6 +4,7 @@ import Membresia from "../models/Membresia.js";
 import Queja from "../models/Queja.js";
 import Pago from "../models/Pago.js";
 import Usuario from "../models/Usuario.js";
+import Venta from "../models/Venta.js";
 
 import { updateUserByIdService } from "../services/userService.js";
 
@@ -109,3 +110,23 @@ export const getReportsService = async () => {
     ],
   });
 }
+
+export const getVentasService = async () => {
+  return await Venta.findAll();
+}
+
+export const createVentaService = async ({ total, cantidad, empleadoId }) => {
+  try {
+    // Crear una nueva venta en la base de datos
+    const nuevaVenta = await Venta.create({
+      total,
+      cantidad,
+      empleadoId,
+    });
+
+    // Retornar la venta creada
+    return nuevaVenta;
+  } catch (error) {
+    throw new Error(`Error al crear la venta: ${error.message}`);
+  }
+};

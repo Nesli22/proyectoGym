@@ -9,7 +9,10 @@ import {
   updateReportById,
   createPayment,
   getReports,
-  getPayments
+  getPayments,
+  getStockProductById,
+  getVentas,
+  createVenta
 } from "../controllers/employeeControllers.js";
 import {
   authMiddleware,
@@ -53,6 +56,20 @@ router.get('/pago',
 );
 
 router.get(
+  "/venta",
+  authMiddleware,
+  authorizeRoles("Administrador", "Empleado"),
+  getVentas
+);
+
+router.post(
+  "/venta",
+  authMiddleware,
+  authorizeRoles("Administrador", "Empleado"),
+  createVenta
+);
+
+router.get(
   "/queja",
   authMiddleware,
   authorizeRoles("Administrador", "Empleado"),
@@ -71,6 +88,12 @@ router.get(
   authMiddleware,
   authorizeRoles("Administrador", "Empleado"),
   getAllProducts
+);
+
+router.get("/producto/stock/:id", 
+  authMiddleware,
+  authorizeRoles("Administrador", "Empleado"),
+  getStockProductById
 );
 
 router.put(

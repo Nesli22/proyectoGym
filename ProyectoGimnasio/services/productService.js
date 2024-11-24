@@ -62,3 +62,19 @@ export const deleteProductByIdService = async (id) => {
         throw error;
     }
 };
+
+export const getStockProductByIdService = async (id) => {
+    try {
+      const producto = await Producto.findByPk(id, {
+        attributes: ['cantidad'],
+      });
+  
+      if (!producto) {
+        throw new Error(`Producto con ID ${id} no encontrado`);
+      }
+  
+      return producto; // Devuelve el producto con su stock
+    } catch (error) {
+      throw new Error(error.message); // Propaga el error para manejarlo en el controlador
+    }
+  };
