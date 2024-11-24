@@ -93,6 +93,7 @@ async function createDataPrincipal() {
 // Rutas para gestionar usuarios
 app.use("/usuarios", userRoutes);
 app.use("/ingresar", authRoutes);
+app.use("/expiracion", authRoutes);
 app.use("/clientes", customerRoutes);
 app.use("/empleados", employeesRoutes);
 

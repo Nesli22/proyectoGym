@@ -1,4 +1,4 @@
-import { getUserByEmailService, verifyPassword, generateToken } from '../services/authService.js';
+import { getUserByEmailService, verifyPassword, generateToken, verifyTokenExpiration } from '../services/authService.js';
 
 export const login = async (req, res) => {
     const { correo, contraseña } = req.body;
@@ -45,3 +45,29 @@ export const login = async (req, res) => {
         });
     }
 };
+
+export const checkTokenValidity = (req, res) => {
+    const { token } = req.body;
+  
+    if (!token) {
+      return res.status(400).json({
+        status: "No",
+        message: "El token es obligatorio",
+      });
+    }
+  
+    const result = verifyTokenExpiration(token);
+  
+    if (result.status) {
+      return res.status(200).json({
+        status: "Si",
+        message: result.message,
+        tiempoRestante: result.timeRemaining, 
+      });
+    } else {
+      return res.status(401).json({
+        status: "No",
+        message: result.message,
+      });
+    }
+  };

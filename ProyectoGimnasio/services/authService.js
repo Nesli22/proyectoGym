@@ -35,3 +35,41 @@ export const generateToken = (user) => {
     );
 };
 
+export const verifyTokenExpiration = (token) => {
+  try {
+    const decoded = jwt.decode(token, { complete: true });
+
+    if (!decoded) {
+      throw new Error("Token inválido");
+    }
+
+    const currentTime = Math.floor(Date.now() / 1000); // Tiempo actual en segundos
+    const timeRemaining = decoded.payload.exp - currentTime;
+
+    if (timeRemaining <= 0) {
+      throw new Error("El token ya ha expirado");
+    }
+
+    // Convertir el tiempo restante a un formato más claro
+    const dias = Math.floor(timeRemaining / (24 * 3600));
+    const horas = Math.floor((timeRemaining % (24 * 3600)) / 3600);
+    const minutos = Math.floor((timeRemaining % 3600) / 60);
+    const segundos = timeRemaining % 60;
+
+    return {
+      status: "Ok",
+      message: "Token válido",
+      timeRemaining: {
+        dias,
+        horas,
+        minutos,
+        segundos,
+      },
+    };
+  } catch (error) {
+    return {
+      status: "No",
+      message: error.message,
+    };
+  }
+};
