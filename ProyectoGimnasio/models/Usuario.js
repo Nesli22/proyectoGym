@@ -83,4 +83,6 @@ Queja.belongsTo(Usuario, { foreignKey: 'usuarioId', as: 'usuario' });
 Pago.belongsTo(Usuario, { as: 'usuario', foreignKey: 'usuarioId' });
 Pago.belongsTo(Usuario, { as: 'empleado', foreignKey: 'empleadoId' });
 
+Venta.belongsTo(Usuario, { as: 'usuario', foreignKey: 'empleadoId'});
+
 export default Usuario;

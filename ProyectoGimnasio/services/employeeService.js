@@ -105,14 +105,22 @@ export const getReportsService = async () => {
       {
         model: Usuario,
         as: 'usuario',
-        attributes: ['nombre'], // Selecciona sólo el campo 'nombre'
+        attributes: ['nombre'], 
       },
     ],
   });
 }
 
 export const getVentasService = async () => {
-  return await Venta.findAll();
+  return await Venta.findAll({
+    include: [
+      {
+        model: Usuario,
+        as: 'usuario',
+        attributes: ['nombre'], 
+      },
+    ],
+  });
 }
 
 export const createVentaService = async ({ total, cantidad, empleadoId }) => {

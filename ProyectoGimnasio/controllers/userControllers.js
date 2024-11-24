@@ -87,7 +87,7 @@ export const getUserById = async (req, res) => {
 
 export const updateUserById = async (req, res) => {
   const { id } = req.params;
-  const { nombre, correo, contraseña, rol, estado, membresiaId } = req.body;
+  const { nombre, correo, contraseña, rol, estadoActivo, membresiaId } = req.body;
 
   // Validaciones básicas
  
