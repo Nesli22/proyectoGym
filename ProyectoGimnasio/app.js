@@ -24,7 +24,7 @@ const PORT = process.env.SV_PORT || 8080;
 app.use(
   cors({
     origin: "*", // Or '*' for all origins
-    methods: ["GET", "POST", "OPTIONS"],
+    methods: ["GET", "POST", "OPTIONS","PUT","DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );

@@ -1,5 +1,6 @@
 import { Sequelize, DataTypes } from 'sequelize';
 import sequelize from '../config/Connection.js';
+import Usuario from './Usuario.js';
 
 const Queja = sequelize.define(
   'Queja',
@@ -32,6 +33,5 @@ const Queja = sequelize.define(
   }
 );
 
-Queja.belongsTo(Usuario, { foreignKey: 'usuarioId', as: 'usuario' });
 
 export default Queja;

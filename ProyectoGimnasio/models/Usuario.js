@@ -85,4 +85,6 @@ Usuario.hasMany(Pago, {
   as: "pagosEmpleado" 
 })
 
+Queja.belongsTo(Usuario, { foreignKey: 'usuarioId', as: 'usuario' });
+
 export default Usuario;

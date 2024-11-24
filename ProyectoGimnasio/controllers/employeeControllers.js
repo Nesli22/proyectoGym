@@ -288,9 +288,9 @@ export const updateReportById = async (req, res) => {
     const { estado, observacion, atendidoPor } = req.body;
 
     // Validaciones básicas
-    if (!id) {
+   /*  if (!id) {
       return res.status(400).json({ message: 'El ID de la queja es requerido' });
-    }
+    }*/
 
     if (!estado || typeof estado !== 'string') {
       return res
