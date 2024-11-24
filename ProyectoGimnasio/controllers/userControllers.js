@@ -84,11 +84,58 @@ export const getUserById = async (req, res) => {
   }
 };
 
+import { updateUserByIdService } from '../services/userService'; // Suponiendo que el servicio está en esta ruta
+
 export const updateUserById = async (req, res) => {
   const { id } = req.params;
-  const userData = req.body;
+  const { nombre, correo, contraseña, rol, estado, membresiaId } = req.body;
+
+  // Validaciones básicas
+  if (!nombre || nombre.trim().length === 0) {
+    return res.status(400).json({
+      status: "No",
+      message: "El nombre es obligatorio y no puede estar vacío",
+    });
+  }
+
+  if (!correo || !/\S+@\S+\.\S+/.test(correo)) {
+    return res.status(400).json({
+      status: "No",
+      message: "El correo electrónico es obligatorio y debe ser válido",
+    });
+  }
+
+  if (!contraseña || contraseña.length < 6) {
+    return res.status(400).json({
+      status: "No",
+      message: "La contraseña es obligatoria y debe tener al menos 6 caracteres",
+    });
+  }
+
+  if (!rol || (rol !== 'Administrador' && rol !== 'Empleado' && rol !== 'Cliente')) {
+    return res.status(400).json({
+      status: "No",
+      message: "El rol es obligatorio y debe ser uno de los siguientes: 'Administrador', 'Empleado', 'Cliente'",
+    });
+  }
+
+  if (estado === undefined) {
+    return res.status(400).json({
+      status: "No",
+      message: "El estado es obligatorio",
+    });
+  }
+
+  if (membresiaId && isNaN(membresiaId)) {
+    return res.status(400).json({
+      status: "No",
+      message: "El ID de membresía debe ser un número válido",
+    });
+  }
+
   try {
-    const updatedUser = await updateUserByIdService(id, userData);
+    const updatedUser = await updateUserByIdService(id, req.body);
+
     if (updatedUser) {
       return res.status(200).json({
         status: "Ok",
@@ -96,6 +143,7 @@ export const updateUserById = async (req, res) => {
         user: updatedUser,
       });
     }
+
     res.status(404).json({
       status: "No",
       message: "Usuario no encontrado",
@@ -109,6 +157,7 @@ export const updateUserById = async (req, res) => {
     });
   }
 };
+
 
 export const deleteUserById = async (req, res) => {
   const { id } = req.params;
