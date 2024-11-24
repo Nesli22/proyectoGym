@@ -8,7 +8,8 @@ import {
   deleteProductById,
   updateReportById,
   createPayment,
-  getReports
+  getReports,
+  getPayments
 } from "../controllers/employeeControllers.js";
 import {
   authMiddleware,
@@ -43,6 +44,12 @@ router.post(
   authMiddleware,
   authorizeRoles("Administrador", "Empleado"),
   createPayment
+);
+
+router.get('/pago',
+  authMiddleware,
+  authorizeRoles("Administrador", "Empleado"),
+  getPayments
 );
 
 router.get(

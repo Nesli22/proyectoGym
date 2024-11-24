@@ -4,7 +4,8 @@ import {
   updateReportByIdService,
   findReportByIdService,
   createPaymentService,
-  getReportsService
+  getReportsService,
+  getPaymentsService
 } from "../services/employeeService.js";
 
 import {
@@ -57,6 +58,24 @@ export const getMemberShips = async (req, res) => {
     res.status(500).json({
       status: "No",
       message: "Error al obtener membresías",
+      error: error.message,
+    });
+  }
+};
+
+export const getPayments = async (req, res) => {
+  try {
+    const pagos = await getPaymentsService();
+    return res.status(200).json({
+      status: "Ok",
+      message: "Pagos obtenidos con éxito",
+      data: pagos,
+    });
+  } catch (error) {
+    console.error("Error al obtener los pagos:", error);
+    res.status(500).json({
+      status: "No",
+      message: "Error al obtener los pagos",
       error: error.message,
     });
   }

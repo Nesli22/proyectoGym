@@ -6,7 +6,7 @@ dotenv.config();
 const dbName = process.env.DB_NAME || 'gym';
 const dbUser = process.env.DB_USER || 'root';
 const dbHost = process.env.DB_HOST || 'localhost';
-const dbPass = process.env.DB_PASS || ''; 
+const dbPass = process.env.DB_PASS || '1234'; 
 const dbDialect = process.env.DB_DIALECT || 'mysql';
 const dbPort = process.env.DB_PORT || 3306;
 

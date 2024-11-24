@@ -77,6 +77,10 @@ export const createPaymentService = async (paymentData) => {
   }
 };
 
+export const getPaymentsService = async () => {
+  return await Pago.findAll();
+};
+
 export const findReportByIdService = async (id) => {
   return await Queja.findByPk(id);
 };
